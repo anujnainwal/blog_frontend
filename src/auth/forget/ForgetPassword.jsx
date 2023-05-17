@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Col, Row, Typography, Form, Input, } from "antd";
 import { NavLink } from "react-router-dom";
+import BgImage from '../../assets/images/common.png'
 
 const ForgetPassword = () => {
   const { Title } = Typography;
@@ -74,12 +75,7 @@ const ForgetPassword = () => {
         </section>
       </Col>
       <Col xs={0} md={12} lg={12} className="rightPanel">
-        <img
-          src={
-            "https://academy-public.coinmarketcap.com/optimized-uploads/c45dca6fbdc54b6d96317c4089da2743.png"
-          }
-          alt="image"
-        />
+        <img src={BgImage} alt="bgImage" />
       </Col>
     </Row>
   );
