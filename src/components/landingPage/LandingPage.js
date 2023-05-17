@@ -2,7 +2,7 @@ import React from "react";
 import "./asset/css/landingPage.css";
 import { Typography } from 'antd';
 const LandingPage = () => {
-  const {Title,Paragraph} = Typography
+  const {Title} = Typography
   return (
     <div className="landingPage">
       <div className="left__panel">
