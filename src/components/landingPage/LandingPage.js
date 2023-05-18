@@ -1,30 +1,61 @@
 import React from "react";
 import "./asset/css/landingPage.css";
-import { Typography } from 'antd';
+
+import Carasouels from "../carasouel/Carasouels";
+import { blog1, blog2, blog3, blog4 } from "./banner";
+const contentStyle = {
+  height: "100vh",
+  color: "#fff",
+  lineHeight: "160px",
+  textAlign: "center",
+  background: "#364d79",
+};
 const LandingPage = () => {
-  const {Title} = Typography
   return (
-    <div className="landingPage">
+    <div className="landingPage ">
       <div className="left__panel">
-        <Title level={1}>Lorem ipsum dolor adipisicing elit.</Title>
-        <p className="pe-5"> Quae beatae, voluptate eligendi dolores amet delectus. Exercitationem, velit reiciendis. </p>
-      </div>
-      <div class="slidercircle">
-        <div class="circle-one">
-          <div class="circle-arround-one"></div>
-        </div>
-        <div class="circle-two">
-          <div class="circle-arround-two-1 anima"></div>
-
-          <div class="circle-arround-two-2 anima"></div>
-
-          <div class="circle-arround-two-3 anima"></div>
-
-          <div class="circle-arround-two-4 anima"></div>
-        </div>
-        <div class="circle-middle">
-         <img src="https://img.freepik.com/free-photo/online-message-blog-chat-communication-envelop-graphic-icon-concept_53876-139717.jpg" alt="blogImage" />
-        </div>
+        <Carasouels>
+          <div>
+            <div style={contentStyle}>
+              <img
+                src={blog1}
+                loading="lazy"
+                className="blogImages"
+                alt="blog1"
+              />
+            </div>
+          </div>
+          <div>
+            <div style={contentStyle}>
+              <img
+                src={blog2}
+                className="blogImages"
+                loading="lazy"
+                alt="blog2"
+              />
+            </div>
+          </div>
+          <div>
+            <div style={contentStyle}>
+              <img
+                src={blog3}
+                className="blogImages"
+                loading="lazy"
+                alt="blog3"
+              />
+            </div>
+          </div>
+          <div>
+            <div style={contentStyle}>
+              <img
+                src={blog4}
+                className="blogImages"
+                loading="lazy"
+                alt="blog4"
+              />
+            </div>
+          </div>
+        </Carasouels>
       </div>
     </div>
   );

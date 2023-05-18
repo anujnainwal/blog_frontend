@@ -1,8 +1,8 @@
 import React from "react";
-import { Button, Col, Row, Typography, Form, Input,  } from "antd";
+import { Button, Col, Row, Typography, Form, Input } from "antd";
 import { NavLink } from "react-router-dom";
 import "./assets/css/register.css";
-import BgImage from '../../assets/images/common.png'
+import BgImage from "../../assets/images/common.png";
 const Register = () => {
   const { Title } = Typography;
 
@@ -18,10 +18,10 @@ const Register = () => {
         </div>
         <section className="login__container">
           <Title level={2} style={{ color: "#fff", textAlign: "center" }}>
-           Register
+            Register
           </Title>
           <p className="text-sm text-center text-white">
-          Register into your account for full access
+            Register into your account for full access
           </p>
           <Form
             name="basic"
@@ -46,16 +46,15 @@ const Register = () => {
                 {
                   type: "text",
                   required: true,
-                  message: "Please input your firstName!",
+                  message: "Please input your firstname!",
                 },
               ]}
-              hasFeedback
             >
-              <Input />
+              <Input type="text" />
             </Form.Item>
             <Form.Item
-              label={<span className="text-white me-1">Email</span>}
-              name="Lastname"
+              label={<span className="text-white me-1">Lastname</span>}
+              name="lastname"
               rules={[
                 {
                   type: "email",
@@ -69,7 +68,7 @@ const Register = () => {
             </Form.Item>
             <Form.Item
               label={<span className="text-white me-1">Email</span>}
-              name="username"
+              name="email"
               rules={[
                 {
                   type: "email",
@@ -95,7 +94,6 @@ const Register = () => {
             >
               <Input.Password />
             </Form.Item>
-          
 
             <div className="text-center ">
               <Button
@@ -108,14 +106,16 @@ const Register = () => {
               </Button>
             </div>
             <p className="text-sm text-center mt-2 text-white ">
-             Already have an Account?
-              <NavLink to="/login" className='text-amber-400'>Login</NavLink>
+              Already have an Account?
+              <NavLink to="/login" className="text-amber-400">
+                Login
+              </NavLink>
             </p>
           </Form>
         </section>
       </Col>
       <Col xs={0} md={12} lg={12} className="rightPanel">
-      <img src={BgImage} alt="bgImage" />
+        <img src={BgImage} alt="bgImage" />
       </Col>
     </Row>
   );
