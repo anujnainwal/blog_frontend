@@ -3,7 +3,7 @@ import axios from "axios";
 //developement url:
 // let BASE_URL = "http://localhost:7000/api/v1";
 //Production URL
-let BASE_URL = "https://blog-backend-xq2z.onrender.com";
+let BASE_URL = "https://blog-backend-xq2z.onrender.com/api/v1";
 
 export const privateAxios = axios.create({
   baseURL: BASE_URL,

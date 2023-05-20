@@ -1,10 +1,20 @@
 import React from "react";
 import { Button, Col, Row, Typography, Form, Input } from "antd";
+import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import "./assets/css/register.css";
 import BgImage from "../../assets/images/common.png";
+import { userError } from "../../fetures/slices/user/userSlice";
+import { registerUser } from "../../fetures/slices/user/userThunk";
 const Register = () => {
   const { Title } = Typography;
+  let dispatch = useDispatch();
+  let onFinishFailed = async (value) => {
+    // return dispatch(userError(value));
+  };
+  let onFinish = async (value) => {
+    dispatch(registerUser(value));
+  };
 
   return (
     <Row className="loginContainer">
@@ -35,37 +45,38 @@ const Register = () => {
             initialValues={{
               remember: true,
             }}
-            // onFinish={onFinish}
-            // onFinishFailed={onFinishFailed}
-            autoComplete="off"
+            onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
           >
             <Form.Item
               label={<span className="text-white me-1">Firstname</span>}
               name="firstname"
               rules={[
                 {
-                  type: "text",
                   required: true,
-                  message: "Please input your firstname!",
+                  min: 4,
+                  max: 50,
                 },
               ]}
+              hasFeedback
             >
-              <Input type="text" />
+              <Input type="text" placeholder="Enter your firstname" />
             </Form.Item>
             <Form.Item
               label={<span className="text-white me-1">Lastname</span>}
               name="lastname"
               rules={[
                 {
-                  type: "email",
                   required: true,
-                  message: "Please input your Lastname!",
+                  min: 4,
+                  max: 50,
                 },
               ]}
               hasFeedback
             >
-              <Input />
+              <Input type="text" placeholder="Enter your lastname" />
             </Form.Item>
+
             <Form.Item
               label={<span className="text-white me-1">Email</span>}
               name="email"
@@ -73,7 +84,6 @@ const Register = () => {
                 {
                   type: "email",
                   required: true,
-                  message: "Please input your email!",
                 },
               ]}
               hasFeedback
@@ -87,7 +97,8 @@ const Register = () => {
               rules={[
                 {
                   required: true,
-                  message: "Please input your password!",
+                  min: 8,
+                  max: 50,
                 },
               ]}
               hasFeedback
