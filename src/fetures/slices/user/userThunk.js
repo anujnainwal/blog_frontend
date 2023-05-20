@@ -6,11 +6,11 @@ export const registerUser = createAsyncThunk(
   "user/register",
   async (user, { rejectWithValue, getState, dispatch }) => {
     try {
-      const response = await privateAxios.post("/user/regitser", user);
+      const response = await privateAxios.post("/user/register", user);
       return response.data;
     } catch (error) {
-      console.error(error?.response);
-      rejectWithValue(error?.response?.data?.error);
+      console.error("error", error?.response);
+      rejectWithValue(error?.response);
     }
   }
 );
