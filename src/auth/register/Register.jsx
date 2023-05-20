@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import "./assets/css/register.css";
 import BgImage from "../../assets/images/common.png";
-import { userError } from "../../fetures/slices/user/userSlice";
+
 import { registerUser } from "../../fetures/slices/user/userThunk";
 const Register = () => {
   const { Title } = Typography;
