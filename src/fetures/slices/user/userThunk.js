@@ -9,8 +9,20 @@ export const registerUser = createAsyncThunk(
       const response = await privateAxios.post("/user/register", user);
       return response.data;
     } catch (error) {
-      console.error("error", error?.response);
-      rejectWithValue(error?.response);
+      return rejectWithValue(error);
+    }
+  }
+);
+
+//login
+export const loginUser = createAsyncThunk(
+  "user/login",
+  async (user, { rejectWithValue }) => {
+    try {
+      const response = await privateAxios.post("/user/login", user);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error);
     }
   }
 );

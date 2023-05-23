@@ -1,12 +1,38 @@
 import React, { useState } from "react";
-import { Drawer, Layout, Switch } from "antd";
-import { AiOutlineMenu } from "react-icons/ai";
-import { NavLink } from "react-router-dom";
+import { Avatar, Button, Drawer, Dropdown, Layout, Space, Switch } from "antd";
+import { AiOutlineMenu, AiOutlineUser } from "react-icons/ai";
+
+import { NavLink, useNavigate } from "react-router-dom";
 import "./asset/css/style.css";
 let { Header } = Layout;
+const token = localStorage.getItem("accessToken");
 
 const Navbar = () => {
   let [showDrawer, setShowDrawer] = useState(false);
+  let navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/login");
+  };
+
+  const items = [
+    {
+      label: <a href="https://www.antgroup.com">Profile</a>,
+      key: "0",
+    },
+    {
+      label: <a href="https://www.aliyun.com">Change Password</a>,
+      key: "1",
+    },
+    {
+      type: "divider",
+    },
+    {
+      label: <Button onClick={handleLogout}>Logout</Button>,
+      key: "3",
+    },
+  ];
+
   return (
     <React.Fragment>
       <Layout>
@@ -41,12 +67,35 @@ const Navbar = () => {
                     <li className="me-5">
                       <NavLink to="/contact">Contact</NavLink>
                     </li>
-                    <li className="me-5">
-                      <NavLink to="/login">Login</NavLink>
-                    </li>
-                    <li className="me-5">
-                      <NavLink to="/register">Register</NavLink>
-                    </li>
+                    {token ? (
+                      <Dropdown
+                        menu={{
+                          items,
+                        }}
+                        trigger={["click"]}
+                        className="me-3 mb-2"
+                      >
+                        <NavLink onClick={(e) => e.preventDefault()}>
+                          <Space>
+                            <Avatar
+                              shape="square"
+                              size={40}
+                              src={"https://i.redd.it/emgudeta7e161.jpg"}
+                              icon={<AiOutlineUser />}
+                            />
+                          </Space>
+                        </NavLink>
+                      </Dropdown>
+                    ) : (
+                      <>
+                        <li className="me-5">
+                          <NavLink to="/login">Login</NavLink>
+                        </li>
+                        <li className="me-5">
+                          <NavLink to="/register">Register</NavLink>
+                        </li>
+                      </>
+                    )}
                     <li>
                       <Switch
                         // checkedChildren={<CheckOutlined />}
@@ -68,12 +117,35 @@ const Navbar = () => {
                 <li className="me-5">
                   <NavLink to="/contact">Contact</NavLink>
                 </li>
-                <li className="me-5">
-                  <NavLink to="/login">Login</NavLink>
-                </li>
-                <li className="me-5">
-                  <NavLink to="/register">Register</NavLink>
-                </li>
+                {token ? (
+                  <Dropdown
+                    menu={{
+                      items,
+                    }}
+                    trigger={["click"]}
+                    className="me-3 mb-2"
+                  >
+                    <NavLink onClick={(e) => e.preventDefault()}>
+                      <Space>
+                        <Avatar
+                          shape="square"
+                          size={40}
+                          src={"https://i.redd.it/emgudeta7e161.jpg"}
+                          icon={<AiOutlineUser />}
+                        />
+                      </Space>
+                    </NavLink>
+                  </Dropdown>
+                ) : (
+                  <>
+                    <li className="me-5">
+                      <NavLink to="/login">Login</NavLink>
+                    </li>
+                    <li className="me-5">
+                      <NavLink to="/register">Register</NavLink>
+                    </li>
+                  </>
+                )}
                 <li>
                   <Switch
                     // checkedChildren={<CheckOutlined />}

@@ -1,24 +1,38 @@
 import React from "react";
 import { Button, Col, Row, Typography, Form, Input } from "antd";
-import { useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink, useNavigate } from "react-router-dom";
 import "./assets/css/register.css";
 import BgImage from "../../assets/images/common.png";
-
 import { registerUser } from "../../fetures/slices/user/userThunk";
+import Alerts from "../../alert/Alerts";
+import MessageResponse from "../../message/MessageResponse";
 const Register = () => {
+  let navigate = useNavigate();
   const { Title } = Typography;
   let dispatch = useDispatch();
+  let user = useSelector((state) => state.auth);
+
+  console.log(user);
   let onFinishFailed = async (value) => {
     // return dispatch(userError(value));
   };
   let onFinish = async (value) => {
     dispatch(registerUser(value));
+    if (user.loading === false) {
+      MessageResponse({ type: "success", content: user.userInfo.message });
+      localStorage.setItem("userInfo", JSON.stringify(user.userInfo.userInfo));
+      navigate("/");
+    }
   };
 
   return (
     <Row className="loginContainer">
       <Col xs={24} sm={24} md={12} lg={12} className="leftPanel">
+        <br />
+        {user.error === true && (
+          <Alerts type="error" message={user.errorMessage} />
+        )}
         <div className="topHeader">
           <NavLink to="/">
             <Button className="border-none bg-slate-600 m-5 text-white">
@@ -112,6 +126,8 @@ const Register = () => {
                 htmlType="submit"
                 size="large"
                 className="w-100 mt-2 bg-blue-500"
+                loading={user.loading ? true : false}
+                disabled={user.loading ? true : false}
               >
                 Register
               </Button>

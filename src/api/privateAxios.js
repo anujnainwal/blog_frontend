@@ -1,9 +1,9 @@
 import axios from "axios";
 //Localhost url :'
 //developement url:
-// export let BASE_URL = "http://localhost:7000/api/v1";
+export let BASE_URL = "http://localhost:7000/api/v1";
 //Production URL
-export let BASE_URL = "https://blog-backend-xq2z.onrender.com/api/v1";
+// export let BASE_URL = "https://blog-backend-xq2z.onrender.com/api/v1";
 export const privateAxios = axios.create({
   baseURL: BASE_URL,
   timeout: 10000,
