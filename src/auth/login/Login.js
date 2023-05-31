@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Col, Row, Typography, Form, Input } from "antd";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,34 +6,48 @@ import "./asset/css/login.css";
 import BgImage from "../../assets/images/common.png";
 import { loginUser } from "../../fetures/slices/user/userThunk";
 import MessageResponse from "../../message/MessageResponse";
+import Loader from "../../utils/loader/Loader";
 
 const Login = () => {
   const { Title } = Typography;
   let dispatch = useDispatch();
-  let user = useSelector((state) => state.auth);
+  let isLoggedIn = JSON.parse(localStorage.getItem("isLoggedIn"));
+
   let navigate = useNavigate();
+  let {
+    isLoading,
+    isError,
+    isSuccess,
+    user,
+    accessToken,
+    errorMessage,
+    statusCode,
+    successMessage,
+  } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (isLoggedIn === true) {
+      navigate("/");
+    }
+  }, [isLoggedIn, navigate]);
+
   const onFinish = async (value) => {
     try {
       dispatch(loginUser(value));
-      if (user.userInfo.status === 1) {
-        MessageResponse({ type: "success", content: "Login success" });
-        localStorage.setItem("userInfo", JSON.stringify(user.userInfo));
-        localStorage.setItem(
-          "accessToken",
-          JSON.stringify(user.userInfo.accessToken)
-        );
-        navigate("/");
+      if (isSuccess) {
+        MessageResponse({ type: "success", content: "login success" });
+        return navigate("/");
       }
     } catch (error) {
-      return;
+      console.error(error);
     }
   };
+  if (isLoading === true) {
+    return <Loader />;
+  }
   return (
     <Row className="loginContainer">
       <Col xs={24} sm={24} md={12} lg={12} className="leftPanel">
-        {user.loading === false &&
-          user.error === true &&
-          MessageResponse({ type: "error", content: "Invalid creedential" })}
         <div className="topHeader">
           <NavLink to="/">
             <Button className="border-none bg-slate-600 m-5 text-white">
@@ -102,8 +116,6 @@ const Login = () => {
                 htmlType="submit"
                 size="large"
                 className="w-100 mt-2 bg-blue-500"
-                disabled={user.loading ? true : false}
-                loading={user.loading ? true : false}
               >
                 Login
               </Button>

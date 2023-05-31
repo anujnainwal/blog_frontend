@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Avatar, Button, Drawer, Dropdown, Layout, Space, Switch } from "antd";
 import { AiOutlineMenu, AiOutlineUser } from "react-icons/ai";
 
@@ -6,12 +6,18 @@ import { NavLink, useNavigate } from "react-router-dom";
 import "./asset/css/style.css";
 let { Header } = Layout;
 const token = localStorage.getItem("accessToken");
+const isLoggedIn = JSON.parse(localStorage.getItem("isLoggedIn"));
 
 const Navbar = () => {
   let [showDrawer, setShowDrawer] = useState(false);
   let navigate = useNavigate();
   const handleLogout = () => {
-    localStorage.clear();
+    console.log("logout");
+    localStorage.removeItem("isLoggedIn");
+
+    localStorage.removeItem("userInfo");
+    localStorage.removeItem("accessToken");
+    // localStorage.clear();
     navigate("/login");
   };
 
@@ -67,7 +73,7 @@ const Navbar = () => {
                     <li className="me-5">
                       <NavLink to="/contact">Contact</NavLink>
                     </li>
-                    {token ? (
+                    {isLoggedIn ? (
                       <Dropdown
                         menu={{
                           items,
@@ -117,7 +123,7 @@ const Navbar = () => {
                 <li className="me-5">
                   <NavLink to="/contact">Contact</NavLink>
                 </li>
-                {token ? (
+                {isLoggedIn ? (
                   <Dropdown
                     menu={{
                       items,
